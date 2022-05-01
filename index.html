@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Salary Calculator</title>
+</head>
+<body>
+  <h1>Salary Calculator</h1>
+  <h2 id="display">Calculate net salary</h2>
+  <form method="post">
+    <input id="gross" type="number" placeholder="monthly gross salary"> <br>
+    <input id="credit" type="number" placeholder="total credit"> <br>
+    <input id="submit" type="submit" value="Calculate"><br>
+  </form>
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript"> 
+$('#submit').click(function(event) {
+
+  
+const getPercentage = (amount, percent) => {
+	return ((amount/100) * percent);
+};
+
+const getPension = (monthlyGross) => {
+
+	const housing = getPercentage(monthlyGross, 10);
+	const transport = getPercentage(monthlyGross, 10);
+	const basic = getPercentage(monthlyGross, 40);
+	const total = housing + transport + basic;
+
+	return getPercentage(total, 8);
+}; 
+
+const deductTax = (monthlyGross) => {
+	const firstAmount = (300000 / 12);
+	const secondAmount = (300000 / 12);
+	const thirdAmount = (500000 / 12);
+	const forthAmount = (500000 / 12);
+	const fifthAmount = (1600000 / 12);
+	const sixthAmount = (3200000 / 12);
+
+	let tax = 0;
+	const monthlyFixed = monthlyGross;
+
+	// for 7% of 1st annual #300
+	if (monthlyGross > firstAmount) {
+		tax += getPercentage(firstAmount, 7);
+		monthlyGross -= firstAmount;
+	} else {
+		tax += getPercentage(monthlyGross, 7);
+		return monthlyFixed - tax;
+	};
+
+	//for 11% of 2nd annual #300
+	if (monthlyGross > secondAmount) {
+		tax += getPercentage(secondAmount, 11);
+		monthlyGross -= secondAmount;
+	} else {
+		tax += getPercentage(monthlyGross, 11)
+		return monthlyFixed - tax;
+	};
+
+	//for 15% of 3rd annual #500
+	if (monthlyGross > thirdAmount) {
+		tax = getPercentage(thirdAmount, 15);
+		monthlyGross -= thirdAmount;
+	} else {
+		tax += getPercentage(monthlyGross, 15)
+		return monthlyFixed - tax;
+	};
+
+	//for 19% of 4th annual #500
+	if (monthlyGross > forthAmount) {
+		tax = getPercentage(forthAmount, 19);
+		monthlyGross -= forthAmount;
+	} else {
+		tax += getPercentage(monthlyGross, 19)
+		return monthlyFixed - tax;
+	};
+
+	//for 21% of 5th annual #1,600,000
+	if (monthlyGross > fifthAmount) {
+		tax = getPercentage(fifthAmount, 21);
+		monthlyGross -= fifthAmount;
+	} else {
+		tax += getPercentage(monthlyGross, 21)
+		return monthlyFixed - tax;
+	};
+
+	//for 24% of 6th annual #3,200,000
+	if (monthlyGross > fifthAmount) {
+		tax = getPercentage(fifthAmount, 21);
+		monthlyGross -= fifthAmount;
+		return monthlyFixed - tax
+	} else {
+		tax += getPercentage(monthlyGross, 21)
+		return monthlyFixed - tax;
+	};
+};
+
+const getNetMonthlySalary = (monthlyGross, otherDeductions = 0) => {
+	const pension = getPension(monthlyGross);
+	const afterTaxDeduction = deductTax(monthlyGross);
+	return afterTaxDeduction - pension - otherDeductions;
+};
+
+  event.preventDefault(); // Prevent the form from submitting via the browser
+  var gross = $("#gross").val();
+  var credit = $("#credit").val();
+
+  const salary = getNetMonthlySalary(gross, credit);
+  $("#display").html(`Net monthly salary = #${Math.round(salary).toLocaleString()}`);
+
+  // var data = {
+  //   item,
+  //   userId,
+  //   unit,
+  //   planId,
+  //   shippingAmount,
+  //   quantity,
+  //   description
+  // };
+  // console.log(data);                                                             
+
+
+  // $.ajax({
+  //       type: "POST",
+  //       contentType: "application/json",
+  //       dataType: "json",
+  //       url: 'https://optomerist-project.herokuapp.com/internships/create',
+  //       data: JSON.stringify(data),
+  //       processData: false,
+  //       success: function (response) {
+  //       console.log(response); 
+  //       // window.location = `${response}`;         
+  //     },
+  //       error: function(xhr, status, error) {
+  //         console.log(xhr);
+  //       let resError = xhr.responseJSON.message;
+  //       console.log(resError);
+  //       // Optionally alert the user of an error here...
+  //       }
+  // });
+})
+</script>
+</html>
