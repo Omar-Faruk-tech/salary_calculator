@@ -48,7 +48,7 @@ const deductTax = (monthlyGross) => {
 
 	let tax = 0;
 	const monthlyFixed = monthlyGross;
-
+  console.log(monthlyGross);
 	// for 7% of 1st annual #300
 	if (monthlyGross > firstAmount) {
 		tax += getPercentage(firstAmount, 7);
@@ -57,6 +57,7 @@ const deductTax = (monthlyGross) => {
 		tax += getPercentage(monthlyGross, 7);
 		return monthlyFixed - tax;
 	};
+  console.log(monthlyGross);
 
 	//for 11% of 2nd annual #300
 	if (monthlyGross > secondAmount) {
@@ -66,6 +67,7 @@ const deductTax = (monthlyGross) => {
 		tax += getPercentage(monthlyGross, 11)
 		return monthlyFixed - tax;
 	};
+  console.log(monthlyGross);
 
 	//for 15% of 3rd annual #500
 	if (monthlyGross > thirdAmount) {
@@ -75,6 +77,7 @@ const deductTax = (monthlyGross) => {
 		tax += getPercentage(monthlyGross, 15)
 		return monthlyFixed - tax;
 	};
+console.log(monthlyGross);
 
 	//for 19% of 4th annual #500
 	if (monthlyGross > forthAmount) {
@@ -84,6 +87,7 @@ const deductTax = (monthlyGross) => {
 		tax += getPercentage(monthlyGross, 19)
 		return monthlyFixed - tax;
 	};
+  console.log(monthlyGross);
 
 	//for 21% of 5th annual #1,600,000
 	if (monthlyGross > fifthAmount) {
@@ -93,6 +97,7 @@ const deductTax = (monthlyGross) => {
 		tax += getPercentage(monthlyGross, 21)
 		return monthlyFixed - tax;
 	};
+console.log(monthlyGross);
 
 	//for 24% of 6th annual #3,200,000
 	if (monthlyGross > fifthAmount) {
